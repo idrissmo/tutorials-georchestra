@@ -59,3 +59,17 @@ certificatesResolvers:
 
 ping: {}
 ```
+
+## step 3: upadate according traefik config in docker-compose.override.yml
+In docker-compose.override.yml:
+- we can comment the `traefic-me-certificate-downloader` block 
+(optional but not useful anymore)
+- for `georchestra-127-0-1-1.traefic.me` service:
+    - comment the `depends_on` section
+    - change the `volumes` section for:
+```
+    -/var/run/docker.stock:/var/run/docker.sock:ro
+    -./ressources/traefic_custom.yml:/etc/traefic/traefic.yml:ro
+    -acme:/acme
+```
+- TODO: document changing FQDN and labels 
